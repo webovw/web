@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>webovsky</title>
+  <link rel="icon" href="https://i.pinimg.com/736x/93/70/f1/9370f113832bb87af8cbe2cde509554c.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      background: #0a0a0a;
+      overflow-x: hidden;
+    }
+
+    .snow-box { display: none; }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* Profile */
+    .profile {
+      text-align: center;
+      padding: 48px 24px 36px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s ease 0.1s forwards;
+    }
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border: 2px solid rgba(255,255,255,0.1);
+      transition: transform 0.3s;
+    }
+    .avatar:hover { transform: scale(1.05); }
+
+    .name {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
+    .tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 28px;
+    }
+
+    .tg-link {
+      display: inline-block;
+      padding: 10px 24px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      text-decoration: none;
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .tg-link:hover {
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 28px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s ease 0.2s forwards;
+    }
+    .stat { text-align: center; }
+    .stat-val { font-size: 20px; font-weight: 800; }
+    .stat-lbl { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 2px; }
+
+    /* Divider */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      margin: 28px 0;
+      opacity: 0;
+      animation: fadeIn 0.6s ease 0.3s forwards;
+    }
+
+    /* Section */
+    .section {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 12px;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeIn 0.5s ease forwards;
+    }
+    .section:nth-of-type(1) { animation-delay: 0.35s; }
+    .section:nth-of-type(2) { animation-delay: 0.55s; }
+    .section:nth-of-type(3) { animation-delay: 0.75s; }
+
+    /* Links */
+    .link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 14px;
+      margin-bottom: 8px;
+      text-decoration: none;
+      color: #fff;
+      transition: all 0.2s;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeIn 0.4s ease forwards;
+      position: relative;
+    }
+    .link::after {
+      content: '→';
+      position: absolute;
+      right: 16px;
+      color: rgba(255,255,255,0.2);
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .link:hover {
+      background: rgba(255,255,255,0.03);
+      border-color: rgba(255,255,255,0.1);
+      transform: translateX(4px);
+    }
+    .link:hover::after { transform: translateX(3px); color: rgba(255,255,255,0.5); }
+    .link:active { transform: scale(0.98); }
+
+    .link:nth-of-type(1) { animation-delay: 0.4s; }
+    .link:nth-of-type(2) { animation-delay: 0.45s; }
+    .link:nth-of-type(3) { animation-delay: 0.5s; }
+
+    .link-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .link-title { font-size: 14px; font-weight: 600; }
+    .link-desc { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 1px; }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 36px;
+      padding: 20px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.15);
+      opacity: 0;
+      animation: fadeIn 0.5s ease 1s forwards;
+    }
+    .footer b { color: rgba(255,255,255,0.4); font-weight: 700; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 12px; }
+      .profile { padding: 36px 20px 28px; }
+      .avatar { width: 84px; height: 84px; }
+      .name { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+
+  <div class="container">
+    <div class="profile">
+      <img src="https://i.pinimg.com/736x/93/70/f1/9370f113832bb87af8cbe2cde509554c.jpg" alt="webovsky" class="avatar">
+      <div class="name">webovsky</div>
+      <div class="tagline">разработка · боты · сайты</div>
+      <a href="https://t.me/no_webov" target="_blank" class="tg-link">tg — @no_webov</a>
+      <div class="stats">
+        <div class="stat"><div class="stat-val">3+</div><div class="stat-lbl">Проекта</div></div>
+        <div class="stat"><div class="stat-val">2+</div><div class="stat-lbl">Бота</div></div>
+        <div class="stat"><div class="stat-val">∞</div><div class="stat-lbl">Вайб</div></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">Если спам или блок — пиши в бота</div>
+    <a href="https://t.me/osdyrbot" target="_blank" class="link">
+      <img src="https://i.pinimg.com/736x/93/70/f1/9370f113832bb87af8cbe2cde509554c.jpg" class="link-icon">
+      <div>
+        <div class="link-title">Бот для сб</div>
+        <div class="link-desc">@osdyrbot</div>
+      </div>
+    </a>
+
+    <div class="section">Сайты</div>
+    <a href="https://terddos.pages.dev/" target="_blank" class="link">
+      <img src="https://i.pinimg.com/736x/93/70/f1/9370f113832bb87af8cbe2cde509554c.jpg" class="link-icon">
+      <div>
+        <div class="link-title">Ter DDoS</div>
+        <div class="link-desc">Нагрузочные тесты</div>
+      </div>
+    </a>
+    <a href="https://teledyr.pages.dev/" target="_blank" class="link">
+      <img src="https://i.pinimg.com/736x/93/70/f1/9370f113832bb87af8cbe2cde509554c.jpg" class="link-icon">
+      <div>
+        <div class="link-title">Teledyr</div>
+        <div class="link-desc">Аналог телеграфа</div>
+      </div>
+    </a>
+
+    <div class="section">Боты</div>
+    <a href="https://t.me/terripbot" target="_blank" class="link">
+      <img src="https://i.pinimg.com/736x/93/70/f1/9370f113832bb87af8cbe2cde509554c.jpg" class="link-icon">
+      <div>
+        <div class="link-title">Ter IP Bot</div>
+        <div class="link-desc">Пробив IP-адресов</div>
+      </div>
+    </a>
+
+    <div class="footer">by <b>mimo</b></div>
+  </div>
+</body>
+</html>
